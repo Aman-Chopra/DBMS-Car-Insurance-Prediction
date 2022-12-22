@@ -1,0 +1,552 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.6 (Homebrew)
+-- Dumped by pg_dump version 14.6 (Homebrew)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: CLAIMS; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."CLAIMS" (
+    "Claim_Id" bigint NOT NULL,
+    "Claim_Note" text NOT NULL,
+    "Date" date NOT NULL,
+    "Event" text NOT NULL
+);
+
+
+ALTER TABLE public."CLAIMS" OWNER TO postgres;
+
+--
+-- Name: CLAIMS_Claim_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."CLAIMS" ALTER COLUMN "Claim_Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."CLAIMS_Claim_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: CUSTOMER; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."CUSTOMER" (
+    "Cust_Id" bigint NOT NULL,
+    "Fname" text NOT NULL,
+    "Minit" text NOT NULL,
+    "Address" text NOT NULL,
+    "State" text NOT NULL,
+    "SSN" text NOT NULL,
+    "Gender" text NOT NULL,
+    "DOB" date NOT NULL,
+    "License" text NOT NULL,
+    "Eligible" boolean NOT NULL,
+    "Phone" bigint NOT NULL,
+    "Lname" text
+);
+
+
+ALTER TABLE public."CUSTOMER" OWNER TO postgres;
+
+--
+-- Name: CUSTOMER_Cust_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."CUSTOMER" ALTER COLUMN "Cust_Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."CUSTOMER_Cust_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: EMPLOYEES; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."EMPLOYEES" (
+    "E_Id" bigint NOT NULL,
+    "Fname" text NOT NULL,
+    "Minit" text,
+    "Lname" text NOT NULL,
+    "Address" text NOT NULL,
+    "SSN" text NOT NULL,
+    "Gender" text NOT NULL,
+    "DOB" date NOT NULL,
+    "Experience" numeric NOT NULL,
+    "Salary" numeric NOT NULL
+);
+
+
+ALTER TABLE public."EMPLOYEES" OWNER TO postgres;
+
+--
+-- Name: EMPLOYEES_E_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."EMPLOYEES" ALTER COLUMN "E_Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."EMPLOYEES_E_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: FINANCIAL_INST; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."FINANCIAL_INST" (
+    "F_Id" bigint NOT NULL,
+    "Name" text NOT NULL,
+    "Address" text NOT NULL
+);
+
+
+ALTER TABLE public."FINANCIAL_INST" OWNER TO postgres;
+
+--
+-- Name: FINANCIAL_INST_F_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."FINANCIAL_INST" ALTER COLUMN "F_Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."FINANCIAL_INST_F_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: HISTORY; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."HISTORY" (
+    "Claims" numeric NOT NULL,
+    "Premiums" numeric NOT NULL,
+    "Accidents" numeric NOT NULL,
+    "Cust_Id" bigint NOT NULL
+);
+
+
+ALTER TABLE public."HISTORY" OWNER TO postgres;
+
+--
+-- Name: INVOICE; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."INVOICE" (
+    "Invoice_Id" bigint NOT NULL,
+    "Billing_Addr" text NOT NULL,
+    "Pay_Type" text NOT NULL
+);
+
+
+ALTER TABLE public."INVOICE" OWNER TO postgres;
+
+--
+-- Name: INVOICE_Invoice_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."INVOICE" ALTER COLUMN "Invoice_Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."INVOICE_Invoice_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: POLICY; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."POLICY" (
+    "Policy_Id" bigint NOT NULL,
+    "Pay_Method" text NOT NULL,
+    "Pay_Period" text NOT NULL,
+    "Start_Date" date NOT NULL,
+    "End_Date" date NOT NULL,
+    "Price" numeric NOT NULL,
+    "Recurring" boolean NOT NULL,
+    "Status" boolean NOT NULL
+);
+
+
+ALTER TABLE public."POLICY" OWNER TO postgres;
+
+--
+-- Name: POLICY_Policy_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."POLICY" ALTER COLUMN "Policy_Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."POLICY_Policy_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: PRODUCT; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."PRODUCT" (
+    "Product_Id" bigint NOT NULL,
+    "Type" text NOT NULL,
+    "Coverage" numeric NOT NULL,
+    "Benefits" text NOT NULL,
+    "Details" text NOT NULL,
+    "Name" text NOT NULL,
+    "Base" numeric NOT NULL,
+    "Premium" numeric NOT NULL
+);
+
+
+ALTER TABLE public."PRODUCT" OWNER TO postgres;
+
+--
+-- Name: PRODUCT_Product_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."PRODUCT" ALTER COLUMN "Product_Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."PRODUCT_Product_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: TRANSACTION; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."TRANSACTION" (
+    "T_Id" bigint NOT NULL,
+    "Date" date NOT NULL,
+    "Amount" numeric NOT NULL
+);
+
+
+ALTER TABLE public."TRANSACTION" OWNER TO postgres;
+
+--
+-- Name: TRANSACTION_T_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."TRANSACTION" ALTER COLUMN "T_Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."TRANSACTION_T_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: VEHICLE; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."VEHICLE" (
+    "Model" text NOT NULL,
+    "Type" text NOT NULL,
+    "Class" text NOT NULL,
+    "Cust_Id" bigint NOT NULL
+);
+
+
+ALTER TABLE public."VEHICLE" OWNER TO postgres;
+
+--
+-- Data for Name: CLAIMS; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."CLAIMS" ("Claim_Id", "Claim_Note", "Date", "Event") FROM stdin;
+1	Accident	2000-11-10	Accident
+2	Property damage	2002-11-10	Property
+\.
+
+
+--
+-- Data for Name: CUSTOMER; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."CUSTOMER" ("Cust_Id", "Fname", "Minit", "Address", "State", "SSN", "Gender", "DOB", "License", "Eligible", "Phone", "Lname") FROM stdin;
+1	Aman	Kumar	Newport	NJ	1234567	M	1995-11-16	abcd1234	t	551220	Chopra
+2	Nidhi	Kumar	Newport	NJ	56789	F	1996-05-14	dacs4534	t	551345	Ranjan
+\.
+
+
+--
+-- Data for Name: EMPLOYEES; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."EMPLOYEES" ("E_Id", "Fname", "Minit", "Lname", "Address", "SSN", "Gender", "DOB", "Experience", "Salary") FROM stdin;
+2	Sho	Kumar	Sinha	NY	123	M	1995-04-19	3	10000
+3	Ashray	\N	Dimri	NY	456	M	1995-07-06	3	12000
+\.
+
+
+--
+-- Data for Name: FINANCIAL_INST; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."FINANCIAL_INST" ("F_Id", "Name", "Address") FROM stdin;
+1	Fin_1	NJ
+2	Fin_2	NYC
+\.
+
+
+--
+-- Data for Name: HISTORY; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."HISTORY" ("Claims", "Premiums", "Accidents", "Cust_Id") FROM stdin;
+\.
+
+
+--
+-- Data for Name: INVOICE; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."INVOICE" ("Invoice_Id", "Billing_Addr", "Pay_Type") FROM stdin;
+1	NJ	CC
+2	NJ	Debit_Card
+\.
+
+
+--
+-- Data for Name: POLICY; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."POLICY" ("Policy_Id", "Pay_Method", "Pay_Period", "Start_Date", "End_Date", "Price", "Recurring", "Status") FROM stdin;
+1	CC	1 month	2000-10-11	2001-10-11	10000	t	t
+3	Debit_Card	1 year	2000-10-10	2001-10-10	5000	t	t
+\.
+
+
+--
+-- Data for Name: PRODUCT; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."PRODUCT" ("Product_Id", "Type", "Coverage", "Benefits", "Details", "Name", "Base", "Premium") FROM stdin;
+1	Car_Insurance	2000	Health protection	Health Protection	Car_Policy	1000	500
+2	Car_Insurance	100	Damage Protection	Damage Protection	Policy	1000	200
+\.
+
+
+--
+-- Data for Name: TRANSACTION; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."TRANSACTION" ("T_Id", "Date", "Amount") FROM stdin;
+1	2000-10-12	1000
+2	2011-11-10	2500
+\.
+
+
+--
+-- Data for Name: VEHICLE; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."VEHICLE" ("Model", "Type", "Class", "Cust_Id") FROM stdin;
+\.
+
+
+--
+-- Name: CLAIMS_Claim_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."CLAIMS_Claim_Id_seq"', 2, true);
+
+
+--
+-- Name: CUSTOMER_Cust_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."CUSTOMER_Cust_Id_seq"', 2, true);
+
+
+--
+-- Name: EMPLOYEES_E_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."EMPLOYEES_E_Id_seq"', 3, true);
+
+
+--
+-- Name: FINANCIAL_INST_F_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."FINANCIAL_INST_F_Id_seq"', 2, true);
+
+
+--
+-- Name: INVOICE_Invoice_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."INVOICE_Invoice_Id_seq"', 2, true);
+
+
+--
+-- Name: POLICY_Policy_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."POLICY_Policy_Id_seq"', 3, true);
+
+
+--
+-- Name: PRODUCT_Product_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."PRODUCT_Product_Id_seq"', 2, true);
+
+
+--
+-- Name: TRANSACTION_T_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."TRANSACTION_T_Id_seq"', 2, true);
+
+
+--
+-- Name: CLAIMS CLAIMS_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."CLAIMS"
+    ADD CONSTRAINT "CLAIMS_pkey" PRIMARY KEY ("Claim_Id");
+
+
+--
+-- Name: CUSTOMER CUSTOMER_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."CUSTOMER"
+    ADD CONSTRAINT "CUSTOMER_pkey" PRIMARY KEY ("Cust_Id");
+
+
+--
+-- Name: EMPLOYEES EMPLOYEES_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."EMPLOYEES"
+    ADD CONSTRAINT "EMPLOYEES_pkey" PRIMARY KEY ("E_Id");
+
+
+--
+-- Name: FINANCIAL_INST FINANCIAL_INST_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."FINANCIAL_INST"
+    ADD CONSTRAINT "FINANCIAL_INST_pkey" PRIMARY KEY ("F_Id");
+
+
+--
+-- Name: INVOICE INVOICE_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."INVOICE"
+    ADD CONSTRAINT "INVOICE_pkey" PRIMARY KEY ("Invoice_Id");
+
+
+--
+-- Name: POLICY POLICY_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."POLICY"
+    ADD CONSTRAINT "POLICY_pkey" PRIMARY KEY ("Policy_Id");
+
+
+--
+-- Name: PRODUCT PRODUCT_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."PRODUCT"
+    ADD CONSTRAINT "PRODUCT_pkey" PRIMARY KEY ("Product_Id");
+
+
+--
+-- Name: TRANSACTION TRANSACTION_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."TRANSACTION"
+    ADD CONSTRAINT "TRANSACTION_pkey" PRIMARY KEY ("T_Id");
+
+
+--
+-- Name: SSN; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "SSN" ON public."EMPLOYEES" USING btree ("SSN");
+
+ALTER TABLE public."EMPLOYEES" CLUSTER ON "SSN";
+
+
+--
+-- Name: Start_date_Index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Start_date_Index" ON public."POLICY" USING btree ("Start_Date");
+
+
+--
+-- Name: State_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "State_index" ON public."CUSTOMER" USING btree ("State");
+
+
+--
+-- Name: HISTORY Cust_Id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."HISTORY"
+    ADD CONSTRAINT "Cust_Id" FOREIGN KEY ("Cust_Id") REFERENCES public."CUSTOMER"("Cust_Id");
+
+
+--
+-- Name: VEHICLE Cust_Id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."VEHICLE"
+    ADD CONSTRAINT "Cust_Id" FOREIGN KEY ("Cust_Id") REFERENCES public."CUSTOMER"("Cust_Id");
+
+
+--
+-- PostgreSQL database dump complete
+--
+
